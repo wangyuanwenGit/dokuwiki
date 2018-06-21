@@ -1,6 +1,7 @@
 <?php
 
 namespace dokuwiki\Ui;
+use dokuwiki\AuthenticationToken;
 use dokuwiki\Form\Form;
 
 /**
@@ -27,6 +28,7 @@ class Profile extends Ui {
         print '<div class="centeralign">' . NL;
 
         html_form('updateprofile', $this->profileForm($userinfo));
+        echo $this->tokenForm($userinfo['user'])->toHTML();
         if($auth->canDo('delUser') && actionOK('profile_delete')) {
             html_form('profiledelete', $this->deletionForm());
         }
@@ -70,6 +72,30 @@ class Profile extends Ui {
         $form->addElement(form_makeButton('reset', '', $lang['btn_reset']));
 
         $form->endFieldset();
+        return $form;
+    }
+
+    /**
+     * Get the authentication token form
+     * 
+     * @param string $user
+     * @return Form
+     */
+    protected function tokenForm($user) {
+        global $lang;
+        global $ID;
+
+        $token = AuthenticationToken::fromUser($user);
+
+        $form = new Form(['id' => 'dw__profiletoken', 'action'=>wl(), 'method'=>'POST']);
+        $form->setHiddenField('do', 'authtoken');
+        $form->setHiddenField('id', 'ID');
+        $form->addFieldsetOpen($lang['proftokenlegend']);
+        $form->addHTML('<p>'.$lang['proftokeninfo'].'</p>');
+        $form->addHTML('<pre>'.$token->getToken().'</pre>');
+        $form->addButton('regen', $lang['proftokengenerate']);
+        $form->addFieldsetClose();
+
         return $form;
     }
 
