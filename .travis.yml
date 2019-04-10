@@ -1,5 +1,4 @@
 language: php
-sudo: false
 php:
   - "nightly"
   - "7.3"
@@ -21,6 +20,8 @@ notifications:
     on_success: change
     on_failure: change
 install:
+  - if [[ $TRAVIS_PHP_VERSION = 'nightly' ]]; then sudo apt-get install libonig2 libonig-dev; fi
+  # Fix nightly PHP error #2744
   - if [[ $TRAVIS_PHP_VERSION > '7.1' ]]; then wget -O ~/.phpenv/versions/$(phpenv version-name)/bin/phpunit https://phar.phpunit.de/phpunit-7.phar; fi
   - if [[ $TRAVIS_PHP_VERSION > '7.1' ]]; then chmod 755 ~/.phpenv/versions/$(phpenv version-name)/bin/phpunit; fi
   # Force PHPUnit 7 #2693; nightly will match $TRAVIS_PHP_VERSION > '7.1' rule
