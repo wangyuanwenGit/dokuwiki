@@ -110,6 +110,7 @@ class Doku_LexerParallelRegex {
      *
      * @author Christopher Smith <chris@jalakai.co.uk>
      */
+    /*
     function split($subject, &$split) {
         if (count($this->_patterns) == 0) {
             return false;
@@ -140,6 +141,43 @@ class Doku_LexerParallelRegex {
 
         $idx = count($matches)-2;
         list($pre, $post) = preg_split($this->_patterns[$idx].$this->_getPerlMatchingFlags(), $subject, 2);
+        $split = array($pre, $matches[0], $post);
+
+        return isset($this->_labels[$idx]) ? $this->_labels[$idx] : true;
+    }*/
+
+    function split($subject, &$split) {
+        if (count($this->_patterns) == 0) {
+            return false;
+        }
+        if (!preg_match($this->_getCompoundedRegex(), $subject, $matches)) {
+            if (function_exists('preg_last_error')) {
+                $err = preg_last_error();
+                switch ($err) {
+                    case PREG_BACKTRACK_LIMIT_ERROR:
+                        msg('A PCRE backtrack error occured. Try to increase the pcre.backtrack_limit in php.ini', -1);
+                        break;
+                    case PREG_RECURSION_LIMIT_ERROR:
+                        msg('A PCRE recursion error occured. Try to increase the pcre.recursion_limit in php.ini', -1);
+                        break;
+                    case PREG_BAD_UTF8_ERROR:
+                        msg('A PCRE UTF-8 error occured. This might be caused by a faulty plugin', -1);
+                        break;
+                    case PREG_INTERNAL_ERROR:
+                        msg('A PCRE internal error occured. This might be caused by a faulty plugin', -1);
+                        break;
+                }
+            }
+
+            $split = array($subject, "", "");
+            return false;
+        }
+
+        $idx = count($matches) - 2;
+        list($pre, $post) = preg_split($this->_patterns[$idx] . $this->_getPerlMatchingFlags(), $subject, 2);
+        if (substr($this->_patterns[$idx] . $this->_getPerlMatchingFlags(), 0, 5) == '(\/\/') {
+            $pre = '//' . $pre;
+        }
         $split = array($pre, $matches[0], $post);
 
         return isset($this->_labels[$idx]) ? $this->_labels[$idx] : true;

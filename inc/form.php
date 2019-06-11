@@ -794,10 +794,15 @@ function form_wikitext($attrs) {
     // mandatory attributes
     unset($attrs['name']);
     unset($attrs['id']);
-    return '<textarea name="wikitext" id="wiki__text" dir="auto" '
-                 .buildAttributes($attrs,true).'>'.DOKU_LF
-                 .formText($attrs['_text'])
-                 .'</textarea>';
+    return '<textarea id="elm1" rows="15" cols="80" style="width:100%" name="wikitext">'.DOKU_LF
+        .formText($attrs['_text'])
+        .'</textarea>';
+//    $(function () {
+//        $('#elm1').xheditor({
+//            localUrlTest:/^https?:\/\/[^\/]*?(xheditor\.com)\//i,
+/*        remoteImgSaveUrl:'<?php echo DOKU_BASE;?>lib/xheditor-1.2.2/demos/saveremoteimg.php?prefix=<?php echo DOKU_BASE;?>'*/
+//        });
+//    })
 }
 
 /**

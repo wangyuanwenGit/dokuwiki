@@ -278,7 +278,8 @@ class Doku_Renderer_xhtml extends Doku_Renderer {
      * @param $text
      */
     function cdata($text) {
-        $this->doc .= $this->_xmlEntities($text);
+//        $this->doc .= $this->_xmlEntities($text);
+        $this->doc .= $text;
     }
 
     /**
@@ -327,14 +328,14 @@ class Doku_Renderer_xhtml extends Doku_Renderer {
      * Start emphasis (italics) formatting
      */
     function emphasis_open() {
-        $this->doc .= '<em>';
+//        $this->doc .= '<em>';
     }
 
     /**
      * Stop emphasis (italics) formatting
      */
     function emphasis_close() {
-        $this->doc .= '</em>';
+//        $this->doc .= '</em>';
     }
 
     /**

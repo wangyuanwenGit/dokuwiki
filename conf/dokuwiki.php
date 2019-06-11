@@ -15,7 +15,7 @@
 /* Basic Settings */
 $conf['title']       = 'DokuWiki';        //what to show in the title
 $conf['start']       = 'start';           //name of start page
-$conf['lang']        = 'en';              //your language
+$conf['lang']        = 'zh';              //your language
 $conf['template']    = 'dokuwiki';         //see lib/tpl directory
 $conf['tagline']     = '';                //tagline in header (if template supports it)
 $conf['sidebar']     = 'sidebar';         //name of sidebar in root namespace (if template supports it)

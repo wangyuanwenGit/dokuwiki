@@ -93,4 +93,8 @@ div.notify {
     right: -99999em !important;
 }
 
+.btnCode {
+    background:transparent url(../xheditor-1.2.2/demos/prettify/code.gif) no-repeat 16px 16px;
+    background-position:2px 2px;}
+
 @import "geshi.less";

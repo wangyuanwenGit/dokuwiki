@@ -10,8 +10,10 @@
  */
 $lang['encoding']              = 'utf-8';
 $lang['direction']             = 'ltr';
-$lang['doublequoteopening']    = '“'; //&ldquo;
-$lang['doublequoteclosing']    = '”'; //&rdquo;
+//$lang['doublequoteopening']    = '“';
+$lang['doublequoteopening']    = '';
+//$lang['doublequoteclosing']    = '”';
+$lang['doublequoteclosing']    = '';
 $lang['singlequoteopening']    = '‘'; //&lsquo;
 $lang['singlequoteclosing']    = '’'; //&rsquo;
 $lang['apostrophe']            = '’'; //&rsquo;
